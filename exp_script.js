@@ -20,7 +20,7 @@ function setCharAt(str, index, chr) {
 };
 
 function rep(str) {
-    str = setCharAt(str, 65, 'w');
+    str = setCharAt(str, 57, 'w');
     return str
 };
 
@@ -92,25 +92,11 @@ var instruction1 = {
         'Welcome to the study! <br>\n' +
         '<br>\n' +
         'Please take a few minutes to read the instructions carefully. <br>\n' +
-        'In this game, you are training to become a gemologist—an expert in gemstones. <br>\n' +
         '<br>\n' +
-        'During the game, you will discover beautiful gemstones, like these: <br>\n' +
-        '   </p>\n' +
-        '<br>\n' +
-        '   <p>\n' +
-        '       <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem01.png" /> <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem02.png" />\n' +
-        '       <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem03.png" /> <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem04.png" />\n' +
-        '<br>\n' +
-        '    </p>\n' +
-        '<br>\n' +
+        'During the game, you will encounter rocks and fish fossils. <br>\n' +
         '    </p>',
 
         /* -----instr_2----- */
-        '<p style="color:black;font-size:26px">\n' +
-        'However, as you can imagine, gemstones are rare! <br>\n' +
-        'Most of the time you will be digging through rocks and fish fossils.<br>\n' +
-        '</p>\n' +
-        '    <br>\n' +
         '<p style="color:black;font-size:26px">\n' +
         'Fish fossils look like this: <br>\n' +
         '</p>\n' +
@@ -172,7 +158,7 @@ var stim_names_infreq = ["img/Stim/fi01.png", "img/Stim/fi02.png", "img/Stim/fi0
 var at_stimuli = []
 var prac_stimuli = []
 var repetition = []
-for (i = 0; i < 1080; i++) { //1080
+for (i = 0; i < 1020; i++) { //1080
     //var stimuli = new Object();
     stimuli_freq = stim_names_freq[Math.floor((Math.random()) * stim_names_freq.length)];
     repetition.push(String(stimuli_freq.charAt(9)) + String(stimuli_freq.charAt(10)) + String(stimuli_freq.charAt(11)) + String(stimuli_freq.charAt(12)) );
@@ -191,7 +177,7 @@ for (i = 0; i < 1080; i++) { //1080
 console.log(repetition)
 
 var repetition_1 = []
-for (i = 0; i < 120; i++) {//120
+for (i = 0; i < 180; i++) {//120
 
     stimuli_infreq = stim_names_infreq[Math.floor((Math.random()) * stim_names_infreq.length)];
     repetition_1.push(String(stimuli_infreq.charAt(9)) + String(stimuli_infreq.charAt(10)) + String(stimuli_infreq.charAt(11)) + String(stimuli_infreq.charAt(12)) );
@@ -228,7 +214,7 @@ for (j = 0; j < repetition.length; j++) {
     stimuli.data = new Object();
 
 
-    if (stimuli.at_stimulus.charAt(60) == 's') {
+    if (stimuli.at_stimulus.charAt(52) == 's') {
         stimuli.data.at_TrialType = 'frequent';
         stimuli.data.correct_response = 'space'
     } else {
@@ -252,7 +238,7 @@ for (j = 0; j < repetition_prac.length; j++) {
     stimuli_prac.data = new Object();
 
 
-    if (stimuli_prac.at_stimulus_prac.charAt(60) == 's') {
+    if (stimuli_prac.at_stimulus_prac.charAt(52) == 's') {
         stimuli_prac.data.at_TrialType = 'frequent';
         stimuli_prac.data.correct_response = 'space'
     } else {
@@ -274,7 +260,7 @@ var prac = {
             stimulus:jsPsych.timelineVariable('at_stimulus_prac'),
             choices: ['space'],
             data: jsPsych.timelineVariable('data'),
-            trial_duration: 800,
+            trial_duration: 600,
             on_finish: function (data) {
                 data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
             }
@@ -288,7 +274,7 @@ var prac = {
             trial_duration:function(data) {
                     if (jsPsych.data.get().filter({ TaskType: 'prac' }).last(1).select('rt').values[0] == null) {
                         var fix_duration = 0
-                    } else { var fix_duration = 800 - (jsPsych.data.get().filter({ TaskType: 'prac' }).last(1).select('rt').values[0]); };
+                    } else { var fix_duration = 600 - (jsPsych.data.get().filter({ TaskType: 'prac' }).last(1).select('rt').values[0]); };
                     return fix_duration
                 }
         }],
@@ -333,130 +319,34 @@ timeline.push(debrief);
 
 
 /* -----Main Instructions----- */
+
 var instruction2 = {
-    type: 'instructions',
-    pages: [
-        /* -----instr_4----- */
-        '<p style="color:black;font-size:26px">\n' +
-        'Thank you for practicing this part of the game! <br>\n' +
-        'Now we will go through some other rules of the Gemstone Expedition.<br>\n' +
-        '<br>\n' +
-        'While digging through rocks and fish fossils, sometimes you will get lucky and find a gemstone. <br>\n' +
-        'When you find a gem, your job is to identify where the gem came from by pressing a button on your keyboard. <br>\n' +
-        '<br>\n' +
-        'You will get positive feedback for correctly identifying where the gem came from! <br>\n' +
-        'You do not get positive feedback for incorrectly identified gems.<br>\n' +
-        '<br>\n' +
-        '</p>',
-
-        /* -----instr_5----- */
-        '<p style="color:black;font-size:26px">\n' +
-        '    You’ll encounter gemstones in two different locations: <br>\n' +
-        '    a faraway mountain and a deserted road, like this:\n' +
-        '</p>\n' +
-        '<br>\n' +
-        '     <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/TS232_ex.png" /> <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/TS110_ex.png" />\n' +
-        '<br>\n' +
-        '\n' +
-        '<p style="color:black;font-size:26px">\n' +
-        '\n' +
-        '        When you are on the mountain, indicate whether the gem came from <br>\n' +
-        '        the top of the mountain by pressing the <span style="font-size: 26px"><b><kbd>Up</kbd></b></span> arrow key <br>\n' +
-        '        or the bottom of the mountain by pressing the <span style="font-size: 26px"><b><kbd>Down</kbd></b></span> arrow key on the keyboard. <br>\n' +
-        '        <br>\n' +
-        '        When you are on the road, indicate whether the gem originated from <br>\n' +
-        '        the left side of the road by pressing the <span style="font-size: 26px"><b><kbd>Left</kbd></b></span> arrow key <br>\n' +
-        '        or the right side of the road by pressing the <span style="font-size: 26px"><b><kbd>Right</kbd></b></span> arrow key on the keyboard. <br>\n' +
-        '</p>',
-
-        /* -----instr_6----- */
-        '<p style="color:black;font-size: 26px">\n' +
-        '    Notice that the gemstones come in different cuts: <br>\n' +
-        '    sharp-edged (diamond-shaped and cone-shaped) and round (circle and oval). <br>\n' +
-        '    <br>\n' +
-        '    They also come in different colors: <br>\n' +
-        '    warm-toned colors (yellow and orange) and cool-toned colors (light blue and dark blue). <br>\n' +
-        '    Like this: <br>\n' +
-        '</p>\n' +
-        '\n' +
-        '    <br>\n' +
-        '<p>\n' +
-        '\n' +
-        '    <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem01.png" /> <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem03.png" />\n' +
-        '    <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem02.png" /> <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/gem04.png" /><br>\n' +
-        '</p>\n' +
-        '<br>\n' +
-        '<p style="color:black;font-size: 26px">\n' +
-        '    This information may be helpful for figuring out where the gems came from.<br>\n' +
-        '</p>',
-
-        /* -----instr_7----- */
-        '<p style="color:black;font-size: 26px">\n' +
-        '    Because you are still a gemologist-in-training,  <br>\n' +
-        '    you will have to learn where the gems came from. <br>\n' +
-        '    <br>\n' +
-        '    There are only two possible responses in each location: <br>\n' +
-        '\n' +
-        '    <span style="font-size: 26px"><b><kbd>Up</kbd></b></span> or <span style="font-size: 26px"><b><kbd>Down</kbd></b></span> on the mountain, <br>\n' +
-        '    and <span style="font-size: 26px"><b><kbd>Left</kbd></b></span> or <span style="font-size: 26px"><b><kbd>Right</kbd></b></span> on the road.<br>\n' +
-        '    <br>\n' +
-        '    You will learn where different types of gems come from <br>\n' +
-        '    based on the feedback you receive after each response. <br>\n' +
-        '    <br>\n' +
-        '    A <span style="font-size: 26px"><b>+1</b></span> indicates a correct response, and a <span style="font-size: 26px"><b>X</b></span> indicates an incorrect response, like this: <br>\n'+
-        '    </p>\n' +
-        '    <br>\n' +
-        '<p>\n' +
-        '    <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/correct_ex.png" /> <img src="https://ziweizhang0304.github.io/Gem_learning_trig/img/Stim/incorrect_ex.png" /><br>\n' +
-        '</p>\n' +
-        '    <br>\n' +
-        '<p style="color:black;font-size:26px">\n' +
-        '    Please pay attention to your choice and feedback after you identify a gem so that you can make your future choices wisely.<br>\n' +
-        '</p>',
-
-        /* -----instr_8----- */
-        '<p style="color:black;font-size:26px">\n' +
-        'We will now show you an example of what the complete expedition might look like to help you understand the process better:<br>\n' +
-        '<br>\n' +
-        'You do not have to do anything here as we go through the video example <br>\n' +
-        '<br>\n' +
-        'Click on "Next" to see the video example <br>\n' +
-        '</p>'
-    ],
-    show_clickable_nav: true,
-}
-timeline.push(instruction2);
-
-var instruction3 = {
     type: 'instructions',
     pages: [
         /* -----instr_9----- */
         '<p style="color:black;font-size:26px">\n' +
         '\n' +
+        '    Thank you for practicing the game! <br>\' +
+        '<br>\n' +
         '    Every time you see a stone, a fish fossil or a gem, please respond as accurately as you can. <br>\n' +
         '<br>\n' +
         '    It is very important that you do your best. <br>\n' +
-        '<br>\n' +
-        '    Although the expedition may seem difficult at first, it should be do-able, especially if you are focused. <br>\n' +
-        '</p>\n' +
         '<br>\n' +
         '<p style="color:black;font-size: 26px">\n' +
         '        Please DO NOT quit or refresh the webpage. <br>\n' +
         '        Unfortunately, we are unable to accept your HIT if you exit out of the page or refresh it.<br>\n' +
         '        Now, click on "Next" to start the main experiment. <br> \n' +
-        '        <br> Happy exploring!\n' +
         '</p> <br>'
     ],
     show_clickable_nav: true,
 }
-timeline.push(instruction3);
+timeline.push(instruction2);
 
 
 
 
 
 /* ----- CPT -----*/
-
 var attention = {
   timeline:[
   {type: "image-keyboard-response",
@@ -521,13 +411,11 @@ var attention = {
     }
     else {
 
-      if(rt_three > rt_mean+ 0.8 * rt_sd){
+      if(rt_three > rt_mean+ 1 * rt_sd){
             data.diff = 'slow'
-            data.condition = 2
             console.log('slow')
-          } else if (rt_three < Math.abs(rt_mean- 0.8 * rt_sd)){
+          } else if (rt_three < Math.abs(rt_mean- 1 * rt_sd)){
                 data.diff = 'fast'
-                data.condition = 2
                 console.log('fast')
             }
             else {lr_node = 0}
