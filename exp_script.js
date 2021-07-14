@@ -326,7 +326,7 @@ var instruction2 = {
         /* -----instr_9----- */
         '<p style="color:black;font-size:26px">\n' +
         '\n' +
-        '    Thank you for practicing the game! <br>\' +
+        '    Thank you for practicing the game! <br>\n' +
         '<br>\n' +
         '    Every time you see a stone, a fish fossil or a gem, please respond as accurately as you can. <br>\n' +
         '<br>\n' +
