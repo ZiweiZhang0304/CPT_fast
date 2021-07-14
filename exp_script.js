@@ -131,7 +131,7 @@ var instruction1 = {
 
         /* -----instr_3----- */
         '<p style="color:black;font-size:26px">\n' +
-        'Now you will do a short practice of this part of the game.<br>\n' +
+        'Now you will do a short practice of the game.<br>\n' +
         '<br>\n' +
         'Remember, press <span style="font-size: 26px"><b><kbd>SPACEBAR</kbd></b></span> when you encounter rocks <br>\n' +
         'and do <span style="font-size: 26px"><b>NOT</b></span> press anything when you encounter fish fossils.<br>\n' +
@@ -214,7 +214,7 @@ for (j = 0; j < repetition.length; j++) {
     stimuli.data = new Object();
 
 
-    if (stimuli.at_stimulus.charAt(52) == 's') {
+    if (stimuli.at_stimulus.charAt(51) == 's') {
         stimuli.data.at_TrialType = 'frequent';
         stimuli.data.correct_response = 'space'
     } else {
@@ -238,7 +238,7 @@ for (j = 0; j < repetition_prac.length; j++) {
     stimuli_prac.data = new Object();
 
 
-    if (stimuli_prac.at_stimulus_prac.charAt(52) == 's') {
+    if (stimuli_prac.at_stimulus_prac.charAt(51) == 's') {
         stimuli_prac.data.at_TrialType = 'frequent';
         stimuli_prac.data.correct_response = 'space'
     } else {
@@ -328,7 +328,7 @@ var instruction2 = {
         '\n' +
         '    Thank you for practicing the game! <br>\n' +
         '<br>\n' +
-        '    Every time you see a stone, a fish fossil or a gem, please respond as accurately as you can. <br>\n' +
+        '    Every time you see a stone or a fish fossil, please respond as accurately as you can. <br>\n' +
         '<br>\n' +
         '    It is very important that you do your best. <br>\n' +
         '<br>\n' +
@@ -367,8 +367,8 @@ var attention = {
 
     data.at_RunningMean = rt_mean
     data.sd = rt_sd
-    data.slow = rt_mean + 0.8*rt_sd
-    data.fast = Math.abs(rt_mean - 0.8*rt_sd)
+    data.slow = rt_mean + 1*rt_sd
+    data.fast = Math.abs(rt_mean - 1*rt_sd)
 
 
     if (at_counter > 3) {
@@ -393,9 +393,6 @@ var attention = {
         if (last_rt.includes(true)) {
          console.log('too fast')};
 
-        var last_lr = jsPsych.data.get().filter({ test_part: 'test' }).last(3).select('TaskType').values;
-        if (last_lr.includes('lr')== true) {
-            console.log('there is a trig trial')}
 
         //calculate trailing RT after the third trial
         var rt_three = jsPsych.data.get().filter({at_TrialType: 'frequent'}).last(3).select('rt').mean();
@@ -406,7 +403,7 @@ var attention = {
 
 
 
-    if (at_counter < 80 || last_infreq.includes('infrequent') || last_correct.includes(false) || last_rt.includes(true) || last_lr.includes('lr')){
+    if (at_counter < 80 || last_infreq.includes('infrequent') || last_correct.includes(false) || last_rt.includes(true)){
         lr_node = 0 //80th trial
     }
     else {
@@ -437,8 +434,6 @@ var attention = {
 }
 ],
 }
-
-
 
 
 var at_test_procedure = {
