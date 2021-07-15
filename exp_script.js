@@ -222,6 +222,12 @@ for (i = 0; i < 180; i++) {//120
 console.log(repetition_1)
 
 /* ----- Selecting Stim for Practice----- */
+var repetition_1_attention = repetition_1.slice(0, 180);
+var repetition_attention = repetition.slice(0, 1020);
+
+console.log('look at here slice')
+console.log(repetition_attention, repetition_1_attention)
+
 for (i = 0; i < repetition_1.length; i++) {
     repetition_copy.splice(Math.floor((Math.random() * repetition_copy.length)), 0, repetition_1[i]);
 };
@@ -234,9 +240,9 @@ for (i = 0; i < repetition_1_prac.length; i++) {
     repetition_prac.splice(Math.floor((Math.random() * repetition_prac.length)), 0, repetition_1_prac[i]);
 }
 
-for (j = 0; j < repetition.length; j++) {
+for (j = 0; j < repetition_copy.length; j++) {
     var stimuli = new Object();
-    stimuli.at_stimulus = repo_site + 'img/Stim/' + repetition[j] + '_b.png';
+    stimuli.at_stimulus = repo_site + 'img/Stim/' + repetition_copy[j] + '_b.png';
 
     stimuli.data = new Object();
 
