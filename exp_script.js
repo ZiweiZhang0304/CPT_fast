@@ -447,10 +447,11 @@ var attention = {
         if (lr_counter > 3) {
         var last_lr = jsPsych.data.get().filterCustom(function(trial){
             return trial.diff}).last(3).values;
-        console.log(last_lr, typeof last_lr)};
+        console.log(last_lr, typeof last_lr)
         if (last_lr.includes(true)) {
         console.log('there is a trig trial')
-        };
+        }
+    };
 
 
         //see if the last 3 lr trials were all fast, if so the next one can't be
