@@ -231,6 +231,7 @@ console.log(repetition_attention, repetition_1_attention)
 for (i = 0; i < repetition_1_attention.length; i++) {
     repetition_attention.splice(Math.floor((Math.random() * repetition_attention.length)), 0, repetition_1_attention[i]);
 };
+console.log(repetition_attention)
 
 var repetition_1_prac = repetition_1.slice(0, 2);
 var repetition_prac = repetition.slice(0, 8);
