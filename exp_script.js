@@ -241,7 +241,7 @@ for (i = 0; i < repetition_1_prac.length; i++) {
 
 for (j = 0; j < repetition_attention.length; j++) {
     var stimuli = new Object();
-    stimuli.at_stimulus = repo_site + 'img/Stim/' + repetition_copy[j] + '_b.png';
+    stimuli.at_stimulus = repo_site + 'img/Stim/' + repetition_attention[j] + '_b.png';
 
     stimuli.data = new Object();
 
