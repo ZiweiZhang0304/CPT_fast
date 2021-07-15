@@ -430,6 +430,11 @@ var attention = {
          console.log('too fast')};
 
 
+        var last_lr = jsPsych.data.get().filter({TaskType: 'at'}).last(3).select('diff').values;
+        if  ( last_lr!=null ) {
+        console.log('there is a trig trial')
+        };
+
 
         //calculate trailing RT after the third trial
         var rt_three = jsPsych.data.get().filter({at_TrialType: 'frequent'}).last(3).select('rt').mean();
@@ -444,7 +449,7 @@ var attention = {
     if (at_counter > 10 && lr_counter > 0){//at_counter > 80 && lr_counter >= 6
         console.log('----new restriction 1 starts here----')
 
-        if (lr_counter > 3) {
+/*        if (lr_counter > 3) {
         var last_lr = jsPsych.data.get().filterCustom(function(data){
             var last = data.diff.last(3).values
             return last});
@@ -452,7 +457,7 @@ var attention = {
         if (last_lr.includes(true)) {
         console.log('there is a trig trial')
         }
-    };
+    };*/
 
 
         //see if the last 3 lr trials were all fast, if so the next one can't be
@@ -536,10 +541,10 @@ var attention = {
     /*-- If attention <= 80 --*/
     if (at_counter <= 10 ||
         last_infreq.includes('infrequent') ||
-        last_correct.includes(false)) //check if last_lr is undefined last_lr == null
+        last_correct.includes(false) || last_lr!=null )//check if last_lr is undefined last_lr == null
     {lr_node = 0 }//change to 80th trial later}
 
-    else if ( last_lr!=null && last_lr.includes(true))  {lr_node = 0 }
+    //else if ( last_lr!=null && last_lr.includes(true))  {lr_node = 0 }
 
     else if (at_counter > 10 && lr_counter > 0 && lr_counter < 6){
 
