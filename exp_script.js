@@ -388,7 +388,6 @@ var attention = {
 
         //see if there was an error in the last 3 trials
         var last_correct = jsPsych.data.get().filter({ TaskType: 'at' }).last(3).select('correct').values;
-        console.log(last_correct)
         if (last_correct.includes(false) == true){
         console.log('there is an error')}
 
@@ -407,6 +406,7 @@ var attention = {
         if (last_lr.includes(true)) {
         console.log('there is a trig trial')
         };
+        console.log(last_lr, typeof last_lr)
 
 
         //calculate trailing RT after the third trial
