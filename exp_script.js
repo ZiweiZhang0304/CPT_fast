@@ -93,7 +93,7 @@ var instruction1 = {
         '<br>\n' +
         'Please take a few minutes to read the instructions carefully. <br>\n' +
         '<br>\n' +
-        'During the game, you will encounter rocks and fish fossils. <br>\n' +
+        'During the study, you will encounter rocks and fish fossils. <br>\n' +
         '    </p>',
 
         /* -----instr_2----- */
@@ -356,7 +356,12 @@ var attention = {
   trial_duration: 600,
   on_finish: function(data){
 
-    var at_counter = jsPsych.data.get().filter({TaskType: 'at'}).select('rt').values.length
+    var at_counter = jsPsych.data.get().filter({TaskType: 'at'}).select('rt').values.length;
+    var lr_counter = jsPsych.data.get().filterCustom(function(trial){
+    return isNaN(trial.diff) == false;
+    }).count()
+    var slow_lr_counter = jsPsych.data.get().filter({diff: 'slow'}).count() //jsPsych.data.get().filter({diff: 'slow'}).length
+    var fast_lr_counter = jsPsych.data.get().filter({diff: 'fast'}).count()
 
     data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
     var rt_mean = jsPsych.data.get().filter({ at_TrialType: 'frequent', key_press: 32}).select('rt').mean(); //if you change response key, don't forget to search for key code
@@ -364,6 +369,10 @@ var attention = {
 
     data.at_counter = at_counter
     console.log(at_counter)
+    data.lr_counter = lr_counter
+    data.slow_lr_counter = slow_lr_counter
+    data.fast_lr_counter = fast_lr_counter
+    console.log('learning trial number: ' + lr_counter)
 
     data.at_RunningMean = rt_mean
     data.sd = rt_sd
@@ -393,6 +402,12 @@ var attention = {
         if (last_rt.includes(true)) {
          console.log('too fast')};
 
+        var last_lr = jsPsych.data.get().filterCustom(function(trial){
+            return trial.diff}).last(3);
+        if (last_lr.includes(true)) {
+        console.log('there is a trig trial')
+        };
+
 
         //calculate trailing RT after the third trial
         var rt_three = jsPsych.data.get().filter({at_TrialType: 'frequent'}).last(3).select('rt').mean();
@@ -402,24 +417,144 @@ var attention = {
   };
 
 
+/* ----new restriction 1 starts here---- */
+    //restriction 1 where the last three trials were all fast/slow then the next one can't be the same: || last_fast == false || last_slow == false
+    if (at_counter > 80 && lr_counter > 0){//at_counter > 80 && lr_counter >= 6
+        console.log('----new restriction 1 starts here----')
 
-    if (at_counter < 80 || last_infreq.includes('infrequent') || last_correct.includes(false) || last_rt.includes(true)){
-        lr_node = 0 //80th trial
-    }
-    else {
+        //see if the last 3 lr trials were all fast, if so the next one can't be
+        if (fast_lr_counter >=3 ) {
+            var last_lr_fast = jsPsych.data.get().filter({ diff: 'fast' }).last(3).select('lr_counter').values;
+            console.log(last_lr_fast)
+            console.log('lr_counter for fast trials: ' + last_lr_fast)
+            console.log('max for last fast trials: ' + Math.max(...last_lr_fast), Math.max(...last_lr_fast)+1)
 
-      if(rt_three > rt_mean+ 1 * rt_sd){
+
+            // if lr_counter number are not consecutive, it means that they are not in a 3 cluster,
+            if (isConsecutive(last_lr_fast)) {
+                if (lr_counter == Math.max(...last_lr_fast) + 1) {
+                    last_fast = false}
+                else (last_fast = true)
+            } else {
+                last_fast = true
+            }
+            console.log('can we trigger fast next? ' + last_fast)
+        } else {
+            console.log('less than 3 fast trials');
+            last_fast = true
+        }
+
+
+        //see if the last 3 lr trials were all slow, if so the next one can't be
+        if (slow_lr_counter >=3 ) {
+            var last_lr_slow = jsPsych.data.get().filter({diff: 'slow'}).last(3).select('lr_counter').values;
+            console.log(last_lr_slow)
+            console.log('lr_counter for slow trials: ' + last_lr_slow)
+            console.log('max for last slow trials: ' + Math.max(...last_lr_slow), Math.max(...last_lr_slow)+1)
+
+            // if lr_counter number are not consecutive, it means that they are not in a 3 cluster,
+            if (isConsecutive(last_lr_slow)) {
+                if (lr_counter == Math.max(...last_lr_slow) + 1) {
+                    last_slow = false}
+                else (last_slow = true)
+            } else {
+                last_slow = true
+            }
+        console.log('can we trigger slow next? ' + last_slow)
+        } else {
+            console.log('less than 3 slow trials');
+            last_slow = true
+        }
+      };
+
+    /* ----new restriction 2 starts here---- */
+    //restriction 2 where in first 6, s fast 3 slow: ||initial_slow == false || initial_fast == false
+    if ( 0< lr_counter && lr_counter <= 6 ) {
+        console.log('----new restriction 2 starts here----')
+        // check how many fast and how many slow have already been encountered
+        console.log('here is initial learning trial: ' + lr_counter)
+        var initial = jsPsych.data.get().filter({ test_part: 'test' }).select('diff').values
+        //console.log(initial)
+
+        var initial_fast_count = countItems(initial, 'fast')
+        //console.log('there are ' + initial_fast_count + 'fast in the first 6 trials')
+        var initial_slow_count = countItems(initial, 'slow')
+        //console.log('there are ' + initial_slow_count + 'slow in the first 6 trials')
+
+        // if there's 0, 1, 2 slow, slow can happen; if there's 3 slow, then don't trigger even reaching a slow threshold
+        if (initial_fast_count < 3) {
+            initial_fast = true
+        } else {
+            initial_fast = false
+        }
+
+        // if there's 0, 1, 2 fast, fast can happen; if there's 3 fast, then don't trigger even reaching a fast threshold
+        if (initial_slow_count < 3) {
+            initial_slow = true
+        } else {
+            initial_slow = false
+        };
+
+      }  else {console.log('no learing yet or more than 6 learning trials')};
+
+
+    /*---- Start appying restrictions to triggering ----*/
+
+    /*-- If attention <= 80 --*/
+    if (at_counter <= 80 ||
+        last_infreq.includes('infrequent') ||
+        last_correct.includes(false) ||
+        last_rt.includes(true) ||
+        last_lr.includes(true))
+    {lr_node = 0 }//change to 80th trial later}
+
+
+    else if (at_counter > 80 && lr_counter > 0 && lr_counter < 6){
+
+
+      /*-- If attention > 80 && 0< learning <=6 --*/
+      if(rt_three > rt_mean+ rt_sd && initial_slow == true)
+      {
             data.diff = 'slow'
             console.log('slow')
-          } else if (rt_three < Math.abs(rt_mean- 1 * rt_sd)){
+          } else if (rt_three < Math.abs(rt_mean- rt_sd) && initial_fast == true)
+          {
                 data.diff = 'fast'
                 console.log('fast')
             }
             else {lr_node = 0}
       }
-    }
-  },
 
+    else if (at_counter > 80 && lr_counter >= 6){
+
+
+      /*-- If attention > 80 && learning > 6 --*/
+      if(rt_three > rt_mean+ rt_sd && last_slow == true)
+      {
+            data.diff = 'slow'
+            console.log('slow')
+          } else if (rt_three < Math.abs(rt_mean- rt_sd) && last_fast == true)
+          {
+                data.diff = 'fast'
+                console.log('fast')
+            }
+            else {lr_node = 0}
+
+    }
+
+    /*-- If attention > 80 && learning = 0 --*/
+    else if (at_counter > 80 && lr_counter == 0) {
+        if(rt_three > rt_mean+ rt_sd) {
+            data.diff = 'slow'
+            console.log('slow')
+          } else if (rt_three < Math.abs(rt_mean- rt_sd))
+          {
+                data.diff = 'fast'
+                console.log('fast')
+            }
+            else {lr_node = 0}};
+  }
+},
 
 {type: "image-keyboard-response",
   stimulus: jsPsych.timelineVariable('at_fix'),
