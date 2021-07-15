@@ -223,7 +223,7 @@ console.log(repetition_1)
 
 /* ----- Selecting Stim for Practice----- */
 var repetition_1_attention = repetition_1.slice(0, 180);
-var repetition_attention = repetition.slice(0, 1020);
+var repetition_attention = repetition.slice(0, 1620);
 
 console.log('look at here slice')
 console.log(repetition_attention, repetition_1_attention)
