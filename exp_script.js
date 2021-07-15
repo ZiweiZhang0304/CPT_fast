@@ -218,7 +218,7 @@ for (i = 0; i < 180; i++) {//120
     }
 
 }
-
+console.log(repetition_1)
 
 /* ----- Selecting Stim for Practice----- */
 for (i = 0; i < repetition_1.length; i++) {
