@@ -229,9 +229,10 @@ console.log('look at here slice')
 console.log(repetition_attention, repetition_1_attention)
 
 for (i = 0; i < repetition_1.length; i++) {
-    repetition_copy.splice(Math.floor((Math.random() * repetition_copy.length)), 0, repetition_1[i]);
+    repetition.splice(Math.floor((Math.random() * repetition.length)), 0, repetition_1[i]);
 };
-console.log(repetition_copy)
+console.log('look at here right now')
+console.log(repetition, repetition_copy)
 
 var repetition_1_prac = repetition_1.slice(0, 2);
 var repetition_prac = repetition.slice(0, 8);
