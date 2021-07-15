@@ -374,8 +374,8 @@ var attention = {
     data.slow_lr_counter = slow_lr_counter
     data.fast_lr_counter = fast_lr_counter
     console.log('learning trial number: ' + lr_counter)
-    console.log('fast learning trial number: ' + fast_counter)
-    console.log('slow learning trial number: ' + slow_counter)
+    console.log('fast learning trial number: ' + fast_lr_counter)
+    console.log('slow learning trial number: ' + slow_lr_counter)
 
     data.at_RunningMean = rt_mean
     data.sd = rt_sd
