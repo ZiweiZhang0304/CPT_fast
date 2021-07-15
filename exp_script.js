@@ -455,7 +455,7 @@ var attention = {
 
 /* ----new restriction 1 starts here---- */
     //restriction 1 where the last three trials were all fast/slow then the next one can't be the same: || last_fast == false || last_slow == false
-    if (at_counter > 10 && lr_counter > 0){//at_counter > 80 && lr_counter >= 6
+    if (at_counter > 80 && lr_counter > 0){//at_counter > 80 && lr_counter >= 6
         console.log('----new restriction 1 starts here----')
 
 /*        if (lr_counter > 3) {
@@ -548,14 +548,14 @@ var attention = {
     /*---- Start appying restrictions to triggering ----*/
 
     /*-- If attention <= 80 --*/
-    if (at_counter <= 10 ||
+    if (at_counter <= 80 ||
         last_infreq.includes('infrequent') ||
         last_correct.includes(false) || last_lr.length != 0 )//check if last_lr is undefined last_lr == null
     {lr_node = 0 }//change to 80th trial later}
 
     //else if ( last_lr!=null && last_lr.includes(true))  {lr_node = 0 }
 
-    else if (at_counter > 10 && lr_counter > 0 && lr_counter < 6){
+    else if (at_counter > 80 && lr_counter > 0 && lr_counter < 6){
 
 
       /*-- If attention > 80 && 0< learning <=6 --*/
@@ -571,7 +571,7 @@ var attention = {
             else {lr_node = 0}
       }
 
-    else if (at_counter > 10 && lr_counter >= 6){
+    else if (at_counter > 80 && lr_counter >= 6){
 
 
       /*-- If attention > 80 && learning > 6 --*/
@@ -589,7 +589,7 @@ var attention = {
     }
 
     /*-- If attention > 80 && learning = 0 --*/
-    else if (at_counter > 10 && lr_counter == 0) {
+    else if (at_counter > 80 && lr_counter == 0) {
         if(rt_three > rt_mean+ rt_sd) {
             data.diff = 'slow'
             console.log('slow')
