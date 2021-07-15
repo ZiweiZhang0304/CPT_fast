@@ -199,7 +199,7 @@ for (i = 0; i < 1020; i++) { //1080
     }
 
 }
-var repetition_copy = repetition
+var repetition_copy = JSON.parse(JSON.stringify(repetition))
 console.log(repetition, repetition_copy)
 
 var repetition_1 = []
