@@ -183,7 +183,7 @@ var stim_names_infreq = ["img/Stim/fi01.png", "img/Stim/fi02.png", "img/Stim/fi0
 var at_stimuli = []
 var prac_stimuli = []
 var repetition = []
-for (i = 0; i < 1020; i++) { //1080
+for (i = 0; i < 1620; i++) { //1080
     //var stimuli = new Object();
     stimuli_freq = stim_names_freq[Math.floor((Math.random()) * stim_names_freq.length)];
     repetition.push(String(stimuli_freq.charAt(9)) + String(stimuli_freq.charAt(10)) + String(stimuli_freq.charAt(11)) + String(stimuli_freq.charAt(12)) );
