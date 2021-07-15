@@ -20,7 +20,7 @@ function setCharAt(str, index, chr) {
 };
 
 function rep(str) {
-    str = setCharAt(str, 56, 'w');
+    str = setCharAt(str, 57, 'w');
     return str
 };
 
@@ -357,11 +357,12 @@ var attention = {
   on_finish: function(data){
 
     var at_counter = jsPsych.data.get().filter({TaskType: 'at'}).select('rt').values.length;
-    var lr_counter = jsPsych.data.get().filterCustom(function(trial){
+/*    var lr_counter = jsPsych.data.get().filterCustom(function(trial){
     return isNaN(trial.diff) == false;
-    }).count()
+    }).count()*/
     var slow_lr_counter = jsPsych.data.get().filter({diff: 'slow'}).count() //jsPsych.data.get().filter({diff: 'slow'}).length
     var fast_lr_counter = jsPsych.data.get().filter({diff: 'fast'}).count()
+    var lr_counter =slow_lr_counter + fast_lr_counter
 
     data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
     var rt_mean = jsPsych.data.get().filter({ at_TrialType: 'frequent', key_press: 32}).select('rt').mean(); //if you change response key, don't forget to search for key code
@@ -373,6 +374,8 @@ var attention = {
     data.slow_lr_counter = slow_lr_counter
     data.fast_lr_counter = fast_lr_counter
     console.log('learning trial number: ' + lr_counter)
+    console.log('fast learning trial number: ' + fast_counter)
+    console.log('slow learning trial number: ' + slow_counter)
 
     data.at_RunningMean = rt_mean
     data.sd = rt_sd
