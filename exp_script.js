@@ -542,7 +542,7 @@ var attention = {
     /*-- If attention <= 80 --*/
     if (at_counter <= 10 ||
         last_infreq.includes('infrequent') ||
-        last_correct.includes(false) || last_lr!=null )//check if last_lr is undefined last_lr == null
+        last_correct.includes(false) || last_lr.length != 0 )//check if last_lr is undefined last_lr == null
     {lr_node = 0 }//change to 80th trial later}
 
     //else if ( last_lr!=null && last_lr.includes(true))  {lr_node = 0 }
