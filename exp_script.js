@@ -20,7 +20,7 @@ function setCharAt(str, index, chr) {
 };
 
 function rep(str) {
-    str = setCharAt(str, 57, 'w');
+    str = setCharAt(str, 56, 'w');
     return str
 };
 
