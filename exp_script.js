@@ -431,6 +431,7 @@ var attention = {
 
 
         var last_lr = jsPsych.data.get().filter({TaskType: 'at'}).last(3).select('diff').values;
+        console.log(last_lr, typeof last_lr)
         if  ( last_lr!=null ) {
         console.log('there is a trig trial')
         };
