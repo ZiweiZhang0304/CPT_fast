@@ -445,8 +445,8 @@ var attention = {
         console.log('----new restriction 1 starts here----')
 
         if (lr_counter > 3) {
-        var last_lr = jsPsych.data.get().filterCustom(function(trial){
-            return trial.diff}).last(3).values;
+        var last_lr = jsPsych.data.get().filterCustom(function(data){
+            return data.diff}).last(3).values;
         console.log(last_lr, typeof last_lr)
         if (last_lr.includes(true)) {
         console.log('there is a trig trial')
