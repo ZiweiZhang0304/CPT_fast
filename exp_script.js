@@ -507,7 +507,7 @@ var attention = {
         last_infreq.includes('infrequent') ||
         last_correct.includes(false) ||
         last_rt.includes(true) ||
-        last_lr.includes(true)) //check if last_lr is undefined last_lr == null
+        last_lr.includes(true) || last_lr==null) //check if last_lr is undefined last_lr == null
     {lr_node = 0 }//change to 80th trial later}
 
 
