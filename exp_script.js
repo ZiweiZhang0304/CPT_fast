@@ -401,12 +401,6 @@ var attention = {
         if (last_rt.includes(true)) {
          console.log('too fast')};
 
-        var last_lr = jsPsych.data.get().filterCustom(function(trial){
-            return trial.diff}).last(3).values;
-        if (last_lr.includes(true)) {
-        console.log('there is a trig trial')
-        };
-        console.log(last_lr, typeof last_lr)
 
 
         //calculate trailing RT after the third trial
@@ -421,6 +415,13 @@ var attention = {
     //restriction 1 where the last three trials were all fast/slow then the next one can't be the same: || last_fast == false || last_slow == false
     if (at_counter > 10 && lr_counter > 0){//at_counter > 80 && lr_counter >= 6
         console.log('----new restriction 1 starts here----')
+
+        var last_lr = jsPsych.data.get().filterCustom(function(trial){
+            return trial.diff}).last(3).values;
+        if (last_lr.includes(true)) {
+        console.log('there is a trig trial')
+        };
+        console.log(last_lr, typeof last_lr)
 
         //see if the last 3 lr trials were all fast, if so the next one can't be
         if (fast_lr_counter >=3 ) {
