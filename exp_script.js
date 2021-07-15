@@ -199,7 +199,8 @@ for (i = 0; i < 1020; i++) { //1080
     }
 
 }
-console.log(repetition)
+var repetition_copy = repetition
+console.log(repetition, repetition_copy)
 
 var repetition_1 = []
 for (i = 0; i < 180; i++) {//120
@@ -222,8 +223,9 @@ console.log(repetition_1)
 
 /* ----- Selecting Stim for Practice----- */
 for (i = 0; i < repetition_1.length; i++) {
-    repetition.splice(Math.floor((Math.random() * repetition.length)), 0, repetition_1[i]);
+    repetition_copy.splice(Math.floor((Math.random() * repetition_copy.length)), 0, repetition_1[i]);
 };
+console.log(repetition_copy)
 
 var repetition_1_prac = repetition_1.slice(0, 2);
 var repetition_prac = repetition.slice(0, 8);
