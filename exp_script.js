@@ -444,13 +444,14 @@ var attention = {
     if (at_counter > 10 && lr_counter > 0){//at_counter > 80 && lr_counter >= 6
         console.log('----new restriction 1 starts here----')
 
-        if (lr_counter >= 3) {
+        if (lr_counter > 3) {
         var last_lr = jsPsych.data.get().filterCustom(function(trial){
             return trial.diff}).last(3).values;
+        console.log(last_lr, typeof last_lr)};
         if (last_lr.includes(true)) {
         console.log('there is a trig trial')
         };
-        console.log(last_lr, typeof last_lr)};
+
 
         //see if the last 3 lr trials were all fast, if so the next one can't be
         if (fast_lr_counter >=3 ) {
