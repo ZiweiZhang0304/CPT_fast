@@ -24,6 +24,31 @@ function rep(str) {
     return str
 };
 
+function countItems(arr, what){
+    var count= 0, i;
+    while((i= arr.indexOf(what, i))!= -1){
+        ++count;
+        ++i;
+    }
+    return count
+}
+
+function isConsecutive(a){
+
+  let visited = {};
+  if((a[a.length - 1] - a[0]) + 1 != a.length){
+   return false;
+  }
+  for(let i = 0; i < a.length; i++){
+    if(visited[a[i]] == 1){
+      return false;
+    }else{
+      visited[a[i]] = 1;
+    }
+    return true;
+  }
+}
+
 var enter_full = {
   type: 'fullscreen',
   fullscreen_mode: true
