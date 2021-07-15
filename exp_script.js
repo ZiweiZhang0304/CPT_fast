@@ -199,8 +199,8 @@ for (i = 0; i < 1020; i++) { //1080
     }
 
 }
-var repetition_copy = JSON.parse(JSON.stringify(repetition))
-console.log(repetition, repetition_copy)
+//var repetition_copy = JSON.parse(JSON.stringify(repetition))
+console.log(repetition)
 
 var repetition_1 = []
 for (i = 0; i < 180; i++) {//120
@@ -228,11 +228,9 @@ var repetition_attention = repetition.slice(0, 1020);
 console.log('look at here slice')
 console.log(repetition_attention, repetition_1_attention)
 
-for (i = 0; i < repetition_1.length; i++) {
-    repetition.splice(Math.floor((Math.random() * repetition.length)), 0, repetition_1[i]);
+for (i = 0; i < repetition_1_attention.length; i++) {
+    repetition_attention.splice(Math.floor((Math.random() * repetition_attention.length)), 0, repetition_1_attention[i]);
 };
-console.log('look at here right now')
-console.log(repetition, repetition_copy)
 
 var repetition_1_prac = repetition_1.slice(0, 2);
 var repetition_prac = repetition.slice(0, 8);
@@ -241,7 +239,7 @@ for (i = 0; i < repetition_1_prac.length; i++) {
     repetition_prac.splice(Math.floor((Math.random() * repetition_prac.length)), 0, repetition_1_prac[i]);
 }
 
-for (j = 0; j < repetition_copy.length; j++) {
+for (j = 0; j < repetition_attention.length; j++) {
     var stimuli = new Object();
     stimuli.at_stimulus = repo_site + 'img/Stim/' + repetition_copy[j] + '_b.png';
 
