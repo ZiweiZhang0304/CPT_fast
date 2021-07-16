@@ -183,7 +183,7 @@ var stim_names_infreq = ["img/Stim/fi01.png", "img/Stim/fi02.png", "img/Stim/fi0
 var at_stimuli = []
 var prac_stimuli = []
 var repetition = []
-for (i = 0; i < 960; i++) { //1080
+for (i = 0; i < 1620; i++) { //1080
     //var stimuli = new Object();
     stimuli_freq = stim_names_freq[Math.floor((Math.random()) * stim_names_freq.length)];
     repetition.push(String(stimuli_freq.charAt(9)) + String(stimuli_freq.charAt(10)) + String(stimuli_freq.charAt(11)) + String(stimuli_freq.charAt(12)) );
@@ -203,7 +203,7 @@ for (i = 0; i < 960; i++) { //1080
 console.log(repetition)
 
 var repetition_1 = []
-for (i = 0; i < 240; i++) {//120
+for (i = 0; i < 180; i++) {//120
 
     stimuli_infreq = stim_names_infreq[Math.floor((Math.random()) * stim_names_infreq.length)];
     repetition_1.push(String(stimuli_infreq.charAt(9)) + String(stimuli_infreq.charAt(10)) + String(stimuli_infreq.charAt(11)) + String(stimuli_infreq.charAt(12)) );
@@ -222,8 +222,8 @@ for (i = 0; i < 240; i++) {//120
 console.log(repetition_1)
 
 /* ----- Selecting Stim for Practice----- */
-var repetition_1_attention = repetition_1.slice(0, 240);
-var repetition_attention = repetition.slice(0, 960);
+var repetition_1_attention = repetition_1.slice(0, 180);
+var repetition_attention = repetition.slice(0, 1620);
 
 console.log('look at here slice')
 console.log(repetition_attention, repetition_1_attention)
